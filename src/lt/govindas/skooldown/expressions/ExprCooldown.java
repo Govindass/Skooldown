@@ -13,7 +13,7 @@ import lt.govindas.skooldown.Skooldown;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-//TODO rename "delta" into something else, since I don't know what delta is
+//TODO add event cooldown support
 public class ExprCooldown extends SimpleExpression<Timespan> {
 
     private Expression<String> name;
@@ -55,10 +55,10 @@ public class ExprCooldown extends SimpleExpression<Timespan> {
     }
 
     @Override
-    public void change(Event e, Object[] delta, ChangeMode mode) {
+    public void change(Event e, Object[] changer, ChangeMode mode) {
         switch (mode) {
             case SET:
-                Skooldown.cooldowns.put(name.getSingle(e), System.currentTimeMillis() + ((Timespan) delta[0]).getMilliSeconds());
+                Skooldown.cooldowns.put(name.getSingle(e), System.currentTimeMillis() + ((Timespan) changer[0]).getMilliSeconds());
                 break;
             case REMOVE_ALL:
             case DELETE:
@@ -68,10 +68,10 @@ public class ExprCooldown extends SimpleExpression<Timespan> {
             case ADD:
                 Long cooldown = Skooldown.cooldowns.get(name.getSingle(e));
                 if (cooldown == null) {
-                    Skooldown.cooldowns.put(name.getSingle(e), System.currentTimeMillis() + ((Timespan) delta[0]).getMilliSeconds());
+                    Skooldown.cooldowns.put(name.getSingle(e), System.currentTimeMillis() + ((Timespan) changer[0]).getMilliSeconds());
                     break;
                 }
-                Skooldown.cooldowns.put(name.getSingle(e), cooldown + ((Timespan) delta[0]).getMilliSeconds());
+                Skooldown.cooldowns.put(name.getSingle(e), cooldown + ((Timespan) changer[0]).getMilliSeconds());
                 break;
             case REMOVE:
                 cooldown = Skooldown.cooldowns.get(name.getSingle(e));
@@ -80,10 +80,10 @@ public class ExprCooldown extends SimpleExpression<Timespan> {
 
                 //remove cooldown from hashMap if it would expire with new value
 
-                if ((cooldown - ((Timespan) delta[0]).getMilliSeconds()) < System.currentTimeMillis()) {
+                if ((cooldown - ((Timespan) changer[0]).getMilliSeconds()) < System.currentTimeMillis()) {
                     Skooldown.cooldowns.remove(name.getSingle(e));
                 } else {
-                    Skooldown.cooldowns.put(name.getSingle(e), cooldown - ((Timespan) delta[0]).getMilliSeconds());
+                    Skooldown.cooldowns.put(name.getSingle(e), cooldown - ((Timespan) changer[0]).getMilliSeconds());
                 }
                 break;
             default:
