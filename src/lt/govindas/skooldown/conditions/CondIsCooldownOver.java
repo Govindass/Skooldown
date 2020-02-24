@@ -13,6 +13,7 @@ public class CondIsCooldownOver extends Condition {
     private Expression<String> name;
     private Expression<String> data;
     private boolean eventCooldown = false;
+    private String dataInput = "";
 
     @SuppressWarnings("unchecked")
     @Override
@@ -48,9 +49,7 @@ public class CondIsCooldownOver extends Condition {
 
             return isNegated();
         } else {
-            String dataInput;
-            if (data == null) dataInput = "";
-            else dataInput = data.getSingle(e);
+            if (data != null) dataInput = data.getSingle(e);
 
             if (Skooldown.eventCooldowns.containsKey(name.getSingle(e) + dataInput)) return isNegated();
             else return !isNegated();

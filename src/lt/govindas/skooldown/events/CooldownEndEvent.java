@@ -17,12 +17,15 @@ public final class CooldownEndEvent extends Event {
 
     public String getData() { return data; }
     public String getName() { return name;}
+
     public long getDelay() { return delay;}
 
     public HandlerList getHandlers() {
         return handlers;
     }
-
+    public boolean matches(String id) {
+        return id.equalsIgnoreCase(this.getName() + this.getData());
+    }
     public static HandlerList getHandlerList() {
         return handlers;
     }

@@ -7,12 +7,12 @@ import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
 import lt.govindas.skooldown.Skooldown;
 import lt.govindas.skooldown.events.CooldownEndEvent;
+import lt.govindas.skooldown.utilities.Timer;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,6 +22,7 @@ public class EffStartCooldown extends Effect {
     private Expression<Timespan> time;
     private Expression<String> data;
     private boolean eventCooldown = false;
+    private String dataInput = "";
 
     @SuppressWarnings("unchecked")
     @Override
@@ -49,14 +50,12 @@ public class EffStartCooldown extends Effect {
     @Override
     protected void execute(Event e) {
 
-        String dataInput;
 
-        if (data == null) dataInput = "";
-        else dataInput = data.getSingle(e);
 
         if (!eventCooldown) {
             Skooldown.cooldowns.put(name.getSingle(e), System.currentTimeMillis() + time.getSingle(e).getMilliSeconds());
         } else {
+            if (data != null) dataInput = data.getSingle(e);
             Timer timer = new Timer((int) time.getSingle(e).getMilliSeconds(), new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent arg0) {

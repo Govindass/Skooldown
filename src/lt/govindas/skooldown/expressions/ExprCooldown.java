@@ -12,11 +12,15 @@ import ch.njol.util.coll.CollectionUtils;
 import lt.govindas.skooldown.Skooldown;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
+import lt.govindas.skooldown.utilities.Timer;
 
-//TODO add event cooldown support
+//TODO add event cooldown editing support, such as remove/add time
 public class ExprCooldown extends SimpleExpression<Timespan> {
 
     private Expression<String> name;
+    private Expression<String> data;
+    private boolean eventCooldown = false;
+    private String dataInput = "";
 
     @Override
     public boolean isSingle() {
@@ -32,26 +36,48 @@ public class ExprCooldown extends SimpleExpression<Timespan> {
     @Override
     public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean paramKleenean, ParseResult paramParseResult) {
         name = (Expression<String>) expr[0];
+        int mark = paramParseResult.mark;
+        if (mark == 1) { eventCooldown = true; }
+        //TODO test if this is right, maybe expression IDs are solid
+        if (expr.length > 2) { data = (Expression<String>) expr[1]; }
         return true;
     }
 
     @Override
     public String toString(@Nullable Event e, boolean debug) {
-        return "get cooldown " + name.getSingle(e);
+        return "get cooldown ";
     }
 
     @Override
     protected Timespan[] get(Event e) {
-        Long cooldown = Skooldown.cooldowns.get(name.getSingle(e));
+        if (data != null) dataInput = data.getSingle(e);
+        Long cooldown;
+        Timer timerCooldown;
+        if (!eventCooldown) {
+            cooldown = Skooldown.cooldowns.get(name.getSingle(e) + dataInput);
 
-        //if cooldown isn't created, will return that it is over
-        if (cooldown == null) return new Timespan[]{new Timespan(0)};
+            //if cooldown isn't created, will return that it is over
 
-        if (cooldown < System.currentTimeMillis()) {
-            Skooldown.cooldowns.remove(name.getSingle(e));
-            return new Timespan[]{new Timespan(0)};
+            if (cooldown == null) return new Timespan[]{new Timespan(0)};
+
+            //if cooldown has expired, will return 0ms
+
+            if (cooldown < System.currentTimeMillis()) {
+                Skooldown.cooldowns.remove(name.getSingle(e) + dataInput);
+                return new Timespan[]{new Timespan(0)};
+            }
+            //return time left
+            return new Timespan[]{new Timespan(cooldown - System.currentTimeMillis())};
+        } else {
+            timerCooldown = Skooldown.eventCooldowns.get(name.getSingle(e) + dataInput);
+
+            //if cooldown isn't created, will return that it is over
+
+            if (timerCooldown == null) return new Timespan[]{new Timespan(0)};
+            //return time left
+
+            return new Timespan[] {new Timespan(timerCooldown.getEndDate() - System.currentTimeMillis())};
         }
-        return new Timespan[]{new Timespan(Skooldown.cooldowns.get(name.getSingle(e)) - System.currentTimeMillis())};
     }
 
     @Override
@@ -63,7 +89,17 @@ public class ExprCooldown extends SimpleExpression<Timespan> {
             case REMOVE_ALL:
             case DELETE:
             case RESET:
-                Skooldown.cooldowns.remove(name.getSingle(e));
+                if (data != null) dataInput = data.getSingle(e);
+
+                if (!eventCooldown) { Skooldown.cooldowns.remove(name.getSingle(e)); }
+                else {
+                    Timer timer = Skooldown.eventCooldowns.get(name.getSingle(e) + dataInput);
+
+                    if (timer != null) {
+                        timer.stop();
+                        Skooldown.eventCooldowns.remove(name.getSingle(e) + dataInput);
+                    }
+                }
                 break;
             case ADD:
                 Long cooldown = Skooldown.cooldowns.get(name.getSingle(e));
