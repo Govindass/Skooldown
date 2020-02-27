@@ -10,7 +10,6 @@ import lt.govindas.skooldown.events.CooldownEndEvent;
 import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
-//TODO add event cooldown editing support, such as remove/add time
 public class ExprCooldownData extends SimpleExpression<String> {
     @Override
     public boolean isSingle() {

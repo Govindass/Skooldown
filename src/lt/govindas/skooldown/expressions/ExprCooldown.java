@@ -38,7 +38,7 @@ public class ExprCooldown extends SimpleExpression<Timespan> {
         name = (Expression<String>) expr[0];
         int mark = paramParseResult.mark;
         if (mark == 1) { eventCooldown = true; }
-        //TODO test if this is right, maybe expression IDs are solid
+
         if (expr.length > 2) { data = (Expression<String>) expr[1]; }
         return true;
     }
@@ -102,15 +102,19 @@ public class ExprCooldown extends SimpleExpression<Timespan> {
                 }
                 break;
             case ADD:
-                Long cooldown = Skooldown.cooldowns.get(name.getSingle(e));
-                if (cooldown == null) {
-                    Skooldown.cooldowns.put(name.getSingle(e), System.currentTimeMillis() + ((Timespan) changer[0]).getMilliSeconds());
+                if (!eventCooldown) {
+                    Long cooldown = Skooldown.cooldowns.get(name.getSingle(e));
+                    if (cooldown == null) {
+                        Skooldown.cooldowns.put(name.getSingle(e), System.currentTimeMillis() + ((Timespan) changer[0]).getMilliSeconds());
+                        break;
+                    }
+                    Skooldown.cooldowns.put(name.getSingle(e), cooldown + ((Timespan) changer[0]).getMilliSeconds());
                     break;
+                } else {
+                  //todo make this stop the timer without calling event & start it with another time fitting to time elapsed and added time
                 }
-                Skooldown.cooldowns.put(name.getSingle(e), cooldown + ((Timespan) changer[0]).getMilliSeconds());
-                break;
             case REMOVE:
-                cooldown = Skooldown.cooldowns.get(name.getSingle(e));
+                Long cooldown = Skooldown.cooldowns.get(name.getSingle(e));
                 //if removing from non-existent cooldown, do nothing
                 if (cooldown == null) return;
 

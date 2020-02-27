@@ -1,12 +1,9 @@
 package lt.govindas.skooldown.events;
 
-import ch.njol.skript.lang.Expression;
-import lt.govindas.skooldown.Skooldown;
-import org.bukkit.event.Event;
-
 import ch.njol.skript.lang.Literal;
 import ch.njol.skript.lang.SkriptEvent;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
+import org.bukkit.event.Event;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
