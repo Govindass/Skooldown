@@ -35,9 +35,9 @@ public final class Skooldown extends JavaPlugin {
 
         Skript.registerEffect(EffEndCooldown.class, "(reset|stop|delete|clear) [(1¦event)] cooldown %string% [with data %-string%]");
 
-        Skript.registerCondition(CondIsCooldownOver.class, "[the] [(1¦event)] cooldown %string% [with data %-string%] (is|has) (finished|over|done)", "[the] [(1¦event)] cooldown %string% [with data %-string%] is(n't| not) unfinished)", "[the] [(1¦event)] cooldown %string% [with data %-string%] is(n't| not) (finished|over|done)", "[the] [(1¦event)] cooldown %string% [with data %-string%] is unfinished");
+        Skript.registerCondition(CondIsCooldownOver.class, "[(1¦event)] cooldown %string% [with data %-string%] (is|has) (finished|over|done)", "[the] [(1¦event)] cooldown %string% [with data %-string%] is(n't| not) unfinished)", "[the] [(1¦event)] cooldown %string% [with data %-string%] is(n't| not) (finished|over|done)", "[the] [(1¦event)] cooldown %string% [with data %-string%] is unfinished");
         Skript.registerExpression(ExprCooldown.class, Timespan.class, ExpressionType.PROPERTY, "[(1¦event)] cooldown %string% [with data %-string%]");
-        //TODO make the event, but I don't know how right now
+
        Skript.registerEvent("Cooldown End", EvtCooldown.class, CooldownEndEvent.class, "(finish|end|complete) of cooldown %string%");
        Skript.registerExpression(ExprCooldownData.class, String.class, ExpressionType.SIMPLE, "cooldown data");
         EventValues.registerEventValue(CooldownEndEvent.class, String.class, new Getter<String, CooldownEndEvent>() {
