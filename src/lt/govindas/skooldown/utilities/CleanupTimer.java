@@ -17,6 +17,7 @@ public class CleanupTimer {
             @Override
             public void run() {
                 Iterator it = Skooldown.cooldowns.entrySet().iterator();
+                i = 0;
                 while (it.hasNext()) {
                     Map.Entry pair = (Map.Entry) it.next();
 
