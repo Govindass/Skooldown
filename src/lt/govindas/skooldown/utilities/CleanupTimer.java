@@ -1,17 +1,19 @@
 package lt.govindas.skooldown.utilities;
 
 import lt.govindas.skooldown.Skooldown;
+import org.bukkit.Bukkit;
 
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
 
 public class CleanupTimer {
-    //Hourly Timer to prevent memory leaks
+    //Regular Cleanup Timer to prevent memory leaks
     public CleanupTimer() {
         Timer timer = new Timer();
-        TimerTask hourlyTask = new TimerTask() {
+        TimerTask regularTask = new TimerTask() {
             int i = 0;
 
             @Override
@@ -29,12 +31,13 @@ public class CleanupTimer {
                     }
                 }
                 if (i > 0) {
-                    System.out.println("[Skooldown Hourly Memory Cleanup] " + i + " finished cooldowns cleared from memory.");
+                    Bukkit.getLogger().log(Level.INFO, "[Skooldown Regular Memory Cleanup] " + i + " finished cooldowns cleared from memory.");
                 }
             }
 
         };
-        //hourly schedule
-        timer.schedule(hourlyTask, 100, 1000 * 60 * 60);
+        //regular schedule
+        int minutes = 30;
+        timer.schedule(regularTask, 100, 1000 * 60 * minutes);
     }
 }
