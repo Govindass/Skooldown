@@ -75,8 +75,7 @@
             <id>sk89q</id>
             <url>http://maven.sk89q.com/repo</url>
         </repository>
-    </repositories>''
-
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>com.github.SkriptLang</groupId>

@@ -1,5 +1,5 @@
 name: Skooldown
-main: lt.govindas.skooldown.Skooldown
+main: net.govindas.skooldown.Skooldown
 version: 1.2.0
 author: Govindas
 depend: [Skript]
