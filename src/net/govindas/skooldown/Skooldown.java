@@ -10,10 +10,12 @@ import net.govindas.skooldown.expressions.ExprCooldown;
 import net.govindas.skooldown.utilities.CleanupTimer;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class Skooldown extends JavaPlugin {
     public static ConcurrentHashMap<String, Long> cooldowns = new ConcurrentHashMap<String, Long>();
+    private Timer cleanupTimer;
 
     @Override
     public void onEnable() {
@@ -27,12 +29,16 @@ public final class Skooldown extends JavaPlugin {
         Skript.registerExpression(ExprCooldown.class, Timespan.class, ExpressionType.PROPERTY, "cooldown %string%");
 
         getLogger().info("Skript addon enabled!");
-        new CleanupTimer();
+
+
+        cleanupTimer = new CleanupTimer().start();
     }
 
     @Override
     public void onDisable() {
         cooldowns = null;
         getLogger().info("Skript addon disabled!");
+        cleanupTimer.cancel();
+        cleanupTimer = null;
     }
 }

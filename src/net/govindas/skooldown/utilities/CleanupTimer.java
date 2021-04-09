@@ -11,7 +11,8 @@ import java.util.logging.Level;
 
 public class CleanupTimer {
     //Regular Cleanup Timer to prevent memory leaks
-    public CleanupTimer() {
+    public CleanupTimer() {}
+    public Timer start() {
         Timer timer = new Timer();
         TimerTask regularTask = new TimerTask() {
             int i = 0;
@@ -39,5 +40,6 @@ public class CleanupTimer {
         //regular schedule
         int minutes = 30;
         timer.schedule(regularTask, 100, 1000 * 60 * minutes);
+        return timer;
     }
 }
