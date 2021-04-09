@@ -1,19 +1,19 @@
-package lt.govindas.skooldown;
+package net.govindas.skooldown;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.util.Timespan;
-import lt.govindas.skooldown.conditions.CondIsCooldownOver;
-import lt.govindas.skooldown.effects.EffEndCooldown;
-import lt.govindas.skooldown.effects.EffStartCooldown;
-import lt.govindas.skooldown.expressions.ExprCooldown;
-import lt.govindas.skooldown.utilities.CleanupTimer;
+import net.govindas.skooldown.conditions.CondIsCooldownOver;
+import net.govindas.skooldown.effects.EffEndCooldown;
+import net.govindas.skooldown.effects.EffStartCooldown;
+import net.govindas.skooldown.expressions.ExprCooldown;
+import net.govindas.skooldown.utilities.CleanupTimer;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 public final class Skooldown extends JavaPlugin {
-    public static HashMap<String, Long> cooldowns = new HashMap<String, Long>();
+    public static ConcurrentHashMap<String, Long> cooldowns = new ConcurrentHashMap<String, Long>();
 
     @Override
     public void onEnable() {
@@ -32,6 +32,7 @@ public final class Skooldown extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        cooldowns = null;
         getLogger().info("Skript addon disabled!");
     }
 }

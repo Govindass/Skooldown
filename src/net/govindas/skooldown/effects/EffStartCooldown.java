@@ -1,11 +1,11 @@
-package lt.govindas.skooldown.effects;
+package net.govindas.skooldown.effects;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
-import lt.govindas.skooldown.Skooldown;
+import net.govindas.skooldown.Skooldown;
 import org.bukkit.event.Event;
 
 public class EffStartCooldown extends Effect {

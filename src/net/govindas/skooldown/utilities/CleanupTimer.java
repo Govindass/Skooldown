@@ -1,6 +1,6 @@
-package lt.govindas.skooldown.utilities;
+package net.govindas.skooldown.utilities;
 
-import lt.govindas.skooldown.Skooldown;
+import net.govindas.skooldown.Skooldown;
 import org.bukkit.Bukkit;
 
 import java.util.Iterator;

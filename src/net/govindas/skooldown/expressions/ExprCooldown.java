@@ -1,4 +1,4 @@
-package lt.govindas.skooldown.expressions;
+package net.govindas.skooldown.expressions;
 
 
 import ch.njol.skript.classes.Changer;
@@ -9,7 +9,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import lt.govindas.skooldown.Skooldown;
+import net.govindas.skooldown.Skooldown;
 import org.bukkit.event.Event;
 
 public class ExprCooldown extends SimpleExpression<Timespan> {

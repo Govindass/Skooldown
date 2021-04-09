@@ -1,10 +1,10 @@
-package lt.govindas.skooldown.conditions;
+package net.govindas.skooldown.conditions;
 
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
-import lt.govindas.skooldown.Skooldown;
+import net.govindas.skooldown.Skooldown;
 import org.bukkit.event.Event;
 
 public class CondIsCooldownOver extends Condition {
