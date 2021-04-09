@@ -20,7 +20,7 @@ public class EffEndCooldown extends Effect {
 
     @Override
     public String toString(Event event, boolean debug) {
-        return "end cooldown  " + name.toString(event, debug);
+        return "end cooldown " + name.toString(event, debug);
     }
 
     @Override
