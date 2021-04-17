@@ -20,7 +20,7 @@ public final class Skooldown extends JavaPlugin {
     @Override
     public void onEnable() {
         Skript.registerAddon(this);
-        Skript.registerEffect(EffStartCooldown.class, "(create|start) [a] cooldown %string% for %timespan%", "(create|start) [a] cooldown %string% for %timespan%");
+        Skript.registerEffect(EffStartCooldown.class, "(create|start) [a] cooldown %string% for %timespan%");
 
 
         Skript.registerEffect(EffEndCooldown.class, "(reset|stop|delete|clear) cooldown %string%");
