@@ -14,7 +14,7 @@ import java.util.Timer;
 import java.util.concurrent.ConcurrentHashMap;
 
 public final class Skooldown extends JavaPlugin {
-    public static ConcurrentHashMap<String, Long> cooldowns = new ConcurrentHashMap<String, Long>();
+    public static ConcurrentHashMap<String, Long> cooldowns = new ConcurrentHashMap<>();
     private Timer cleanupTimer;
 
     @Override
