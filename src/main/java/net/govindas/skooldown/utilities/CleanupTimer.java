@@ -19,12 +19,12 @@ public class CleanupTimer {
 
             @Override
             public void run() {
-                Iterator it = Skooldown.cooldowns.entrySet().iterator();
+                Iterator<Map.Entry<String, Long>> it = Skooldown.cooldowns.entrySet().iterator();
                 i = 0;
                 while (it.hasNext()) {
-                    Map.Entry pair = (Map.Entry) it.next();
+                    Map.Entry<String, Long> pair = it.next();
 
-                    long value = (long) pair.getValue();
+                    long value = pair.getValue();
                     if (value < System.currentTimeMillis()) {
                         i++;
 
