@@ -30,4 +30,6 @@ Example:
 cooldown "example%player%" is over
 ```
 
-WIP
+# Compatibility
+- Should work on about any Minecraft version on which Skript works, cooldowns do not interact with Minecraft code in any way
+- Incompatible with WolvSK addon cooldowns due to syntax conflict, just use Skooldown instead
