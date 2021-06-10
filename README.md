@@ -37,7 +37,8 @@ send "This cooldown will be over in %{_cd}%"
 Extend/Reduce existing cooldown
 ```
 add 5 seconds to cooldown "example%player%"
-remove 5 seconds from cooldown "example%player%"
+if cooldown "example%player%" is not higher than 5 seconds:
+  remove 5 seconds from cooldown "example%player%"
 ```
 
 
