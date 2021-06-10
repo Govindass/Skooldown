@@ -29,6 +29,17 @@ cooldown %string% is unfinished
 Example:
 cooldown "example%player%" is over
 ```
+Display cooldown time
+```
+set {_cd} to cooldown "example%player%"
+send "This cooldown will be over in %{_cd}%"
+```
+Extend/Reduce existing cooldown
+```
+add 5 seconds to cooldown "example%player%"
+remove 5 seconds from cooldown "example%player%"
+```
+
 
 # Compatibility
 - Should work on about any Minecraft version on which Skript works, cooldowns do not interact with Minecraft code in any way
